@@ -49,7 +49,7 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 Selector labels
 */}}
 {{- define "nginx.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "nginx.name" . }}
+app.kubernetes.io/name: {{ include "nginx.fullname" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
