@@ -4,9 +4,6 @@ Expand the name of the chart.
 {{- define "nginx.fullname" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
-# {{- define "nginx.fullname" -}}
-# {{ .Release.Name }}
-# {{- end -}}
 
 {{/*
 Create a default fully qualified app name.
@@ -55,11 +52,11 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 
 {{/*
 Create the name of the service account to use
-# */}}
-# {{- define "nginx.serviceAccountName" -}}
-# {{- if .Values.serviceAccount.create }}
-# {{- default (include "nginx.fullname" .) .Values.serviceAccount.name }}
-# {{- else }}
-# {{- default "default" .Values.serviceAccount.name }}
-# {{- end }}
-# {{- end }}
+{{- define "nginx.serviceAccountName" -}}
+{{- if .Values.serviceAccount.create }}
+{{- default (include "nginx.fullname" .) .Values.serviceAccount.name }}
+{{- else }}
+{{- default "default" .Values.serviceAccount.name }}
+{{- end }}
+{{- end }}
+*/}}
