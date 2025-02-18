@@ -1,0 +1,42 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: poc-multi-app-deploy
+  namespace: argocd
+spec:
+  generators:
+    - matrix:
+        generators:
+          - list:
+              elements:
+                - environment: test
+                  server: https://kubernetes.default.svc
+          - list:
+              elements:
+                - name: poc-app-v1
+                  repoPath: helm-chart/nginx
+                  namespace: test
+                - name: poc-app-v2
+                  repoPath: helm-chart/nginx
+                  namespace: test
+    
+  template:
+    metadata:
+      name: "{{name}}-{{environment}}"
+    spec:
+      project: poc-jobs
+      source:
+        repoURL: https://github.com/nking-betika/gitops-poc.git
+        path: "{{repoPath}}"
+        targetRevision: main
+        helm:
+          valueFiles:
+            - "values.yaml"
+            - "values-v2.yaml"
+      destination:
+        server: "{{server}}"
+        namespace: "{{namespace}}"
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
