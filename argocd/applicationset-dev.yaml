@@ -13,10 +13,10 @@ spec:
                   server: https://kubernetes.default.svc
           - list:
               elements:
-                - name: poc-app-v1
+                - name: v1
                   repoPath: helm-chart/nginx
                   namespace: test
-                - name: poc-app-v2
+                - name: v2
                   repoPath: helm-chart/nginx
                   namespace: test
     
@@ -31,8 +31,7 @@ spec:
         targetRevision: main
         helm:
           valueFiles:
-            - "values.yaml"
-            - "values-v2.yaml"
+            - "values-{{name}}.yaml"
       destination:
         server: "{{server}}"
         namespace: "{{namespace}}"
