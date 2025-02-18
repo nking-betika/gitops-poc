@@ -28,7 +28,7 @@ spec:
       source:
         repoURL: https://github.com/nking-betika/gitops-poc.git
         path: "{{repoPath}}"
-        targetRevision: main
+        targetRevision: HEAD
         helm:
           valueFiles:
             - "values-{{name}}.yaml"
@@ -39,3 +39,5 @@ spec:
         automated:
           prune: true
           selfHeal: true
+        syncOptions:
+          - ServerSideApply=true
