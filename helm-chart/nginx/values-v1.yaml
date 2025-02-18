@@ -5,11 +5,11 @@ image:
   pullPolicy: IfNotPresent
   tag: "stable-alpine"
 
-serviceAccount:
-  create: true
-  automount: true
-  annotations: {}
-  name: ""
+# serviceAccount:
+#   create: true
+#   automount: true
+#   annotations: {}
+#   name: ""
 
 podAnnotations: {}
 podLabels: {}
